@@ -5,6 +5,7 @@ node* newPoint(int key, int data){
     //allocate memory
     item->key = key;
     item->value = data;
+    return item;
 }
 //hash functions
 int hash_function(int key, int size){
@@ -18,6 +19,7 @@ LinkedList** pLinkedList(HashTable* ht){
     for(int i = 0; i < ht->size; i++){
         adjList[i] = nullptr; //set everything in list as null
     }
+    return adjList;
 }
 //collision handling using separate chaining
 void separateChain(HashTable *table, int index, node *item){

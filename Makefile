@@ -1,10 +1,10 @@
-gp = a.out
+exec = gp
 flags = -g -Wall -c -std=c++11
 
-all: $(gp)
+all: $(exec)
 
-$(gp): main.o linkedList.o graph.o hashTable.o defns.o
-	g++	-o	$(gp) $^
+$(exec): main.o linkedList.o graph.o hashTable.o defns.o
+	g++	-o	$(exec) $^
 
 main.o: main.cpp
 	g++ $(flags) $^

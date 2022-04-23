@@ -1,4 +1,7 @@
+#include <iostream>
 #include "hashTable.h"
+
+using namespace std;
 int returnVertices(std::string fileName, int y1, int y2){
     std::string getLine;
     int data = 0;
@@ -33,31 +36,33 @@ int** readVertices(std::string fileName, int y1, int y2){
     std::string getLine;
     int data = 0;
     int year = 0;
-    int lineCounter = 1;
+    int lineCounter = 0;
     std::ifstream file;
     file.open(fileName);
     while(getline(file, getLine)){
         lineCounter++;
     }
+    std::cout<<"test2";
     file.close();
-    int** verticesArray = nullptr;
-
-    lineCounter = 0;
-    file.open(fileName);
-    while(getline(file, getLine)){
-        for(int i = 0; i < getLine.length(); i++){
-            if(getLine.at(i) == ' '){
-                data = std::stoi(getLine.substr(0, i-1));
-                year = std::stoi(getLine.substr(i, getLine.length()));
-                if(year >= y1 && year <= y2){
-                    verticesArray[lineCounter][0] = data;
-                    verticesArray[lineCounter][1] = year;
-                }
-            }
-        }
-    }
-    file.close();
-    return verticesArray;
+    std::cout<<"test1";
+//    int** verticesArray = nullptr;
+//
+//    lineCounter = 0;
+//    file.open(fileName);
+//    while(getline(file, getLine)){
+//        for(int i = 0; i < getLine.length(); i++){
+//            if(getLine.at(i) == '\t'){
+//                data = std::stoi(getLine.substr(0, i-1));
+//                year = std::stoi(getLine.substr(i, getLine.length()));
+//                if(year >= y1 && year <= y2){
+//                    verticesArray[lineCounter][0] = data;
+//                    verticesArray[lineCounter][1] = year;
+//                }
+//            }
+//        }
+//    }
+//    file.close();
+//    return verticesArray;
 }
 void addEdges(Graph* graph, std::string fileName, int y1, int y2){
     std::ifstream file;
@@ -74,30 +79,33 @@ void addEdges(Graph* graph, std::string fileName, int y1, int y2){
     }
 }
 Graph* createGraph(std::string edges, std::string dates, int y1, int y2){
+    std::cout<<"test5";
     Graph* graph;
+    std::cout<<"test4";
     graph->verticesArray = readVertices(dates, y1, y2);
-    graph->vertices = returnVertices(dates, y1, y2);
-    graph->adjacencyLists = createHashTable(graph->vertices);
+    std::cout<<"test";
+//    graph->vertices = returnVertices(dates, y1, y2);
+//    graph->adjacencyLists = createHashTable(graph->vertices);
     // instantiate num of vertices amd vertex labels to graph
     // create adjacency lists
-    int vLabel[graph->vertices];
+    //int vLabel[graph->vertices];
     //vLabel = new int[graph->vertices];
     //sort vertex labels in increasing order
 
-    for(int i = 0; i < graph->vertices; i++){
-        vLabel[i] = graph->verticesArray[i][0];
-    }
-    mergesort(vLabel, 0, graph->vertices-1);
+//    for(int i = 0; i < graph->vertices; i++){
+//        vLabel[i] = graph->verticesArray[i][0];
+//    }
+//    mergesort(vLabel, 0, graph->vertices-1);
 
     //add each vertex to hash table
     //in my project, i used as hash table to store the vertices and edges
     //index is used with the hash_function instead of the index in the vArray.
-    for(int i = 0; i < graph->vertices; i++){
-        insertHash(graph->adjacencyLists, graph->verticesArray[i][1], graph->verticesArray[i][0]);
-    }
+//    for(int i = 0; i < graph->vertices; i++){
+//        insertHash(graph->adjacencyLists, graph->verticesArray[i][1], graph->verticesArray[i][0]);
+//    }
+//
+//    //add all edges to graph
+//    addEdges(graph, edges, y1, y2);
 
-    //add all edges to graph
-    addEdges(graph, edges, y1, y2);
-
-    return graph;
+    //return graph;
 }
