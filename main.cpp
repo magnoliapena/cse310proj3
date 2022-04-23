@@ -4,11 +4,11 @@
 #include <string>
 #include <fstream>
 #include <cmath>
-#include "defns.h"
+#include "graph.h"
 
 int main(int argc, char *argv[]) {
     std::string command; //input line
-    graph = new graph(argv[1], arvg[2]); //create graph with parameters of the
+    Graph graph = createGraph(argv[1], argv[2]); //create graph with parameters of the
     std::ifstream file;
     file.open(argv[3]);
     // cases for each command
@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
             " = " << graph.returnEdges/graph.returnVertices << ".";
             std::cout<<"\nThe out-degree distribution is:";
             std::cout<<"\n\tOut-degree : Number of vertices ";
-            //list vertices and outgoing edges
+            std::cout<< graph.outDegree()<<"\n";
         }
         else if(command.substr(0, 7) == "diameter"){
             std::cout<<"Command: ";
@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
             std::cout<<"Command: ";
             std::cout<<"\nThe graph G has " << graph.returnComponents << " strongly connected components: ";
             std::cout<<"\n\tSize : Number";
-            //list
+            std::cout<<graph.scc()<<"\n";
         }
         else if(command.substr(0, 8) == "end-graph"){
             break;
