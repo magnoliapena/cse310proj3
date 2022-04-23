@@ -6,7 +6,7 @@ int returnVertices(std::string fileName, int y1, int y2){
     std::string getLine;
     int data = 0;
     int year = 0;
-    int lineCounter = 1;
+    int lineCounter = 0;
     int vertex = 0;
     std::ifstream file;
     file.open(fileName);
@@ -15,14 +15,13 @@ int returnVertices(std::string fileName, int y1, int y2){
     }
     file.close();
     int** verticesArray = nullptr;
-
     lineCounter = 0;
     file.open(fileName);
     while(getline(file, getLine)){
         for(int i = 0; i < getLine.length(); i++){
             if(getLine.at(i) == ' '){
-                data = std::stoi(getLine.substr(0, i-1));
-                year = std::stoi(getLine.substr(i, getLine.length()));
+                year = std::stoi(getLine.substr(i, getLine.length()-i));
+                std::cout<<year<<"\n";
                 if(year >= y1 && year <= y2){
                     vertex++;
                 }
@@ -42,27 +41,25 @@ int** readVertices(std::string fileName, int y1, int y2){
     while(getline(file, getLine)){
         lineCounter++;
     }
-    std::cout<<"test2";
     file.close();
-    std::cout<<"test1";
-//    int** verticesArray = nullptr;
-//
-//    lineCounter = 0;
-//    file.open(fileName);
-//    while(getline(file, getLine)){
-//        for(int i = 0; i < getLine.length(); i++){
-//            if(getLine.at(i) == '\t'){
-//                data = std::stoi(getLine.substr(0, i-1));
-//                year = std::stoi(getLine.substr(i, getLine.length()));
-//                if(year >= y1 && year <= y2){
-//                    verticesArray[lineCounter][0] = data;
-//                    verticesArray[lineCounter][1] = year;
-//                }
-//            }
-//        }
-//    }
-//    file.close();
-//    return verticesArray;
+    int** verticesArray = nullptr;
+
+    lineCounter = 0;
+    file.open(fileName);
+    while(getline(file, getLine)){
+        for(int i = 0; i < getLine.length(); i++){
+            if(getLine.at(i) == ' '){
+                data = std::stoi(getLine.substr(0, i-1));
+                year = std::stoi(getLine.substr(i, getLine.length()-i));
+                if(year >= y1 && year <= y2){
+                    verticesArray[lineCounter][0] = data;
+                    verticesArray[lineCounter][1] = year;
+                }
+            }
+        }
+    }
+    file.close();
+    return verticesArray;
 }
 void addEdges(Graph* graph, std::string fileName, int y1, int y2){
     std::ifstream file;
@@ -79,12 +76,10 @@ void addEdges(Graph* graph, std::string fileName, int y1, int y2){
     }
 }
 Graph* createGraph(std::string edges, std::string dates, int y1, int y2){
-    std::cout<<"test5";
-    Graph* graph;
-    std::cout<<"test4";
-    graph->verticesArray = readVertices(dates, y1, y2);
-    std::cout<<"test";
-//    graph->vertices = returnVertices(dates, y1, y2);
+    Graph* graph = (Graph*)malloc(sizeof(Graph*));
+    graph->vertices = 0;
+    graph->edges = 0;
+    //graph->verticesArray = readVertices(dates, y1, y2);
 //    graph->adjacencyLists = createHashTable(graph->vertices);
     // instantiate num of vertices amd vertex labels to graph
     // create adjacency lists
