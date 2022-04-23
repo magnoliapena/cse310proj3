@@ -7,7 +7,7 @@ $(gp): adjacencyList.o createGraph.o
 adjacencyList.o: adjacencyList.cpp
 	g++ $(flags) $^
 
-createGraph.o: createGraph.cpp
+createGraph.o: graph.cpp
 	g++ $(flags) $^
 
 clean:

@@ -4,10 +4,11 @@
 #include <string>
 #include <fstream>
 #include <cmath>
+#include "defns.h"
 
 int main(int argc, char *argv[]) {
     std::string command; //input line
-    graph = new createGraph(argv[1], arvg[2]); //create graph with parameters of the
+    graph = new graph(argv[1], arvg[2]); //create graph with parameters of the
     std::ifstream file;
     file.open(argv[3]);
     // cases for each command
