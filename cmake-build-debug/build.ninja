@@ -79,6 +79,18 @@ build CMakeFiles/cse310proj3.dir/graph.cpp.o: CXX_COMPILER__cse310proj3_Debug /h
   OBJECT_DIR = CMakeFiles/cse310proj3.dir
   OBJECT_FILE_DIR = CMakeFiles/cse310proj3.dir
 
+build CMakeFiles/cse310proj3.dir/FWalgorithm.cpp.o: CXX_COMPILER__cse310proj3_Debug /home/cse310/CLionProjects/cse310proj3/FWalgorithm.cpp || cmake_object_order_depends_target_cse310proj3
+  DEP_FILE = CMakeFiles/cse310proj3.dir/FWalgorithm.cpp.o.d
+  FLAGS = -g -std=gnu++14
+  OBJECT_DIR = CMakeFiles/cse310proj3.dir
+  OBJECT_FILE_DIR = CMakeFiles/cse310proj3.dir
+
+build CMakeFiles/cse310proj3.dir/DFS.cpp.o: CXX_COMPILER__cse310proj3_Debug /home/cse310/CLionProjects/cse310proj3/DFS.cpp || cmake_object_order_depends_target_cse310proj3
+  DEP_FILE = CMakeFiles/cse310proj3.dir/DFS.cpp.o.d
+  FLAGS = -g -std=gnu++14
+  OBJECT_DIR = CMakeFiles/cse310proj3.dir
+  OBJECT_FILE_DIR = CMakeFiles/cse310proj3.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target cse310proj3
@@ -87,7 +99,7 @@ build CMakeFiles/cse310proj3.dir/graph.cpp.o: CXX_COMPILER__cse310proj3_Debug /h
 #############################################
 # Link the executable cse310proj3
 
-build cse310proj3: CXX_EXECUTABLE_LINKER__cse310proj3_Debug CMakeFiles/cse310proj3.dir/main.cpp.o CMakeFiles/cse310proj3.dir/defns.cpp.o CMakeFiles/cse310proj3.dir/linkedList.cpp.o CMakeFiles/cse310proj3.dir/hashTable.cpp.o CMakeFiles/cse310proj3.dir/graph.cpp.o
+build cse310proj3: CXX_EXECUTABLE_LINKER__cse310proj3_Debug CMakeFiles/cse310proj3.dir/main.cpp.o CMakeFiles/cse310proj3.dir/defns.cpp.o CMakeFiles/cse310proj3.dir/linkedList.cpp.o CMakeFiles/cse310proj3.dir/hashTable.cpp.o CMakeFiles/cse310proj3.dir/graph.cpp.o CMakeFiles/cse310proj3.dir/FWalgorithm.cpp.o CMakeFiles/cse310proj3.dir/DFS.cpp.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/cse310proj3.dir
   POST_BUILD = :
