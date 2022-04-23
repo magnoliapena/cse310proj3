@@ -1,28 +1,19 @@
 #ifndef CSE310PROJ3_HASHTABLE_H
 #define CSE310PROJ3_HASHTABLE_H
-#include "defns.h"
 #include "linkedList.h"
-struct HashTable{
-    node** nodes;
-    LinkedList** LinkedList;
-    int size;
-    int count;
-};
 //create 'vertex'
 node* newPoint(int key, int data){
     node* item = (node*)malloc(sizeof(node));
-    item->key = (int*) malloc(sizeof(key) + 1);
-    item->value = (int*)malloc(sizeof(data) + 1);
     //allocate memory
-    item->key = &key;
-    item->value = &data;
+    item->key = key;
+    item->value = data;
 }
 //hash functions
-int hash_function(int *key, int size){
-    return *key % size; //index of where key is at using key % tablesize function
+int hash_function(int key, int size){
+    return key % size; //index of where key is at using key % tablesize function
     //example size = 37 and key = year 2000, hash_function returns, 2, should be in spot 2
 }
-//creat adjacencyList
+//create adjacencyList
 LinkedList** pLinkedList(HashTable* ht){
     LinkedList** adjList = (LinkedList**)calloc(ht->size, sizeof(LinkedList*));
     //allocate memory for adjacencyList
@@ -44,8 +35,8 @@ void separateChain(HashTable *table, int index, node *item){
     }
 }
 //insert item into hashtable and check if spot exists in table
-void insertHash(HashTable *table, int *key, int data){
-    node* item = newPoint(*key, data);
+void insertHash(HashTable *table, int key, int data){
+    node* item = newPoint(key, data);
     int hashIndex = hash_function(key, table->size);
     node* temp = table->nodes[hashIndex];
     if(temp == nullptr){
@@ -61,7 +52,7 @@ void insertHash(HashTable *table, int *key, int data){
     }
 }
 // search for node in hashtable and returns value
-bool searchHash(HashTable *table, int *key){
+bool searchHash(HashTable *table, int key){
     int hashIndex = hash_function(key, table->size);
     node* temp = table->nodes[hashIndex];
     if(temp != nullptr && (temp->key == key)){
@@ -89,7 +80,7 @@ HashTable* createHashTable(int size){
         }
     }
     //allocate memory for HashTable
-    HashTable* ht = (HashTable*)malloc(sizeof(HashTable));
+    auto* ht = (HashTable*)malloc(sizeof(HashTable));
     ht->size = newSize;
     ht->count = 0;
     ht->nodes = (node**)calloc(ht->size, sizeof(node*));
@@ -98,6 +89,6 @@ HashTable* createHashTable(int size){
         //create linked list for each node in hash table at each index
         ht->LinkedList = pLinkedList(ht);
     }
-
+    return ht;
 }
 #endif //CSE310PROJ3_HASHTABLE_H

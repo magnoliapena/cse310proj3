@@ -1,14 +1,10 @@
 gp = main
-flags = -c -g -Wall
+flags = -g -Wall
+
 all: $(gp)
 
-$(gp): adjacencyList.o createGraph.o
-
-adjacencyList.o: adjacencyList.cpp
-	g++ $(flags) $^
-
-createGraph.o: graph.cpp
-	g++ $(flags) $^
+$(gp):  defns.h	linkedList.h hashTable.h graph.h
+	g++	$(gp) $(flags) $<
 
 clean:
-	rm *.o main
+	rm -f main

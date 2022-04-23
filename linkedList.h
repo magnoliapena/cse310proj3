@@ -2,12 +2,6 @@
 #define CSE310PROJ3_LINKEDLIST_H
 #include "defns.h"
 #include <cmath>
-struct LinkedList{
-    node* node;
-    LinkedList* next;
-    int size;
-    int count;
-};
 
 LinkedList* createList(){
     LinkedList* list = (LinkedList*)malloc(sizeof(LinkedList));
