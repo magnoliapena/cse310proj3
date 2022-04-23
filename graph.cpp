@@ -58,7 +58,7 @@ void diameter(Graph* graph){
     std::cout<<"\nThe graph G has diameter " << graph->diameter;
 }
 //store vertices from between y1 to y2 in 2d array with their data
-int** readVertices(std::string fileName, int y1, int y2){
+int** readVertices(std::string fileName, int y1, int y2, int vertices){
     std::string getLine;
     int data = 0;
     int year = 0;
@@ -70,7 +70,10 @@ int** readVertices(std::string fileName, int y1, int y2){
     }
     file.close();
     int** verticesArray = nullptr;
-
+    verticesArray =  new int*[vertices];
+    for(int i = 0; i < vertices; i++){
+        verticesArray[i] = new int[2];
+    }
     lineCounter = 0;
     file.open(fileName);
     while(getline(file, getLine)){
@@ -114,16 +117,16 @@ void scc(Graph* graph){
 Graph* createGraph(std::string edges, std::string dates, int y1, int y2){
     Graph* graph = (Graph*)malloc(sizeof(Graph*));
     graph->vertices = 0;
+    graph->sccArray = nullptr;
+    //allocate memory and store everything as null first
+    graph->vertices = returnVertices(dates, y1, y2);
     graph->edges = 0;
     graph->verticesArray = nullptr;
     graph->adjacencyLists = nullptr;
     graph->diameter = 0;
-    graph->sccNum = 0;
-    graph->sccArray = nullptr;
-    //allocate memory and store everything as null first
-    graph->vertices = returnVertices(dates, y1, y2); //num of vertices
+    graph->sccNum = 0;//num of vertices
     graph->adjacencyLists = createHashTable(graph->vertices); //adjacency list
-    graph->verticesArray = readVertices(dates, y1, y2); //vertices Array
+    graph->verticesArray = readVertices(dates, y1, y2, graph->vertices); //vertices Array
     graph->vLabel[graph->vertices]; //only vertex no data
     for(int i = 0; i < graph->vertices; i++){
         graph->vLabel[i] = graph->verticesArray[i][0];

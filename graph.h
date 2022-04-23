@@ -3,7 +3,7 @@
 #define CSE310PROJ3_GRAPH_H
 int returnVertices(std::string fileName, int y1, int y2);
 int returnEdges(Graph* graph, std::string edges);
-int** readVertices(std::string fileName, int y1, int y2);
+int** readVertices(std::string fileName, int y1, int y2, int vertices);
 void addEdges(Graph* graph, std::string edges);
 void outDegree(Graph* graph);
 void outDegreeDistribution(Graph* graph);

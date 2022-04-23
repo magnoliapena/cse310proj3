@@ -3,12 +3,14 @@
 #include "graph.h"
 
 int main(int argc, char *argv[]) {
+    std::cout<<"test5";
     std::string command; //input line
     Graph* graph = (Graph*)malloc(sizeof(Graph*));//create graph
     std::ifstream file;
     int commands = 0;
     int index = 0;
     file.open(argv[3]);
+    std::cout<<"test4";
 
     //find # of commands
     while(getline(file, command)){
@@ -24,22 +26,25 @@ int main(int argc, char *argv[]) {
         index++;
     }
     file.close();
+    std::cout<<"test";
     for(int i = 0; i < index; i++){
         if (commandsArray[i].substr(0, 11) == "start-graph"){
+            std::cout<<"test1";
             int year1 = stoi(commandsArray[i].substr(12, 4));
             int year2 = stoi(commandsArray[i].substr(17, 4));
             graph = createGraph(argv[1], argv[2], year1, year2);
         }
-        else if(commandsArray[i].substr(0, 10) == "out-degree"){
-            outDegree(graph);
-        }
-        else if(commandsArray[i].substr(0, 8) == "diameter"){
-            diameter(graph);
-        }
-        else if(commandsArray[i].substr(0, 2) == "scc"){
-            scc(graph);
-        }
+//        else if(commandsArray[i].substr(0, 10) == "out-degree"){
+//            outDegree(graph);
+//        }
+//        else if(commandsArray[i].substr(0, 8) == "diameter"){
+//            diameter(graph);
+//        }
+//        else if(commandsArray[i].substr(0, 2) == "scc"){
+//            scc(graph);
+//        }
         else if(commandsArray[i].substr(0, 10) == "end-graph"){
+            std::cout<<"test2";
             break;
         }
     }
