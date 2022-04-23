@@ -1,21 +1,18 @@
-#include <stdio.h>
-#include <string.h>
 #include <iostream>
 #include <string>
-#include <fstream>
-#include <cmath>
 #include "graph.h"
-
 
 int main(int argc, char *argv[]) {
     std::string command; //input line
-    Graph* graph; //create graph with parameters of the
+    Graph* graph = nullptr; //create graph
     std::ifstream file;
     file.open(argv[3]);
-    // cases for each command
+     //cases for each command
     while(getline(file, command)){
+
         if(command.substr(0, 10) == "start-graph"){
-            graph = createGraph(argv[1], argv[2], stoi(command.substr(12, 15)), stoi(command.substr(17, 20)));
+            //stoi(command.substr(12, 15)), stoi(command.substr(17, 20))
+            graph = createGraph(argv[1], argv[2],2002, 2004 );
             std::cout<<"Command: "<< command; //echo command
             std::cout<<"\nThe graph G for the years " << command.substr(12,15) << " " << command.substr(17, 20);
             std::cout<<"\n\t|V| = " << graph->vertices << "vertices";
