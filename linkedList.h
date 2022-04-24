@@ -5,5 +5,5 @@
 
 //declare functions
 LinkedList* createList();
-LinkedList* insertList(LinkedList* list, node* item);
+void insertList(LinkedList* list, node* item);
 #endif //CSE310PROJ3_LINKEDLIST_H

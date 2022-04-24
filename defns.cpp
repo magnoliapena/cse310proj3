@@ -1,11 +1,11 @@
 #include "defns.h"
 
-void merge(int array[], int start, int middle, int end) {
+void merge(node* array, int start, int middle, int end) {
     int sizeLeft = middle - start + 1;
     int sizeRight = end - middle;
 
-    int *leftArray = new int[sizeLeft];
-    int *rightArray = new int[sizeRight];
+    node* leftArray = new node[sizeLeft];
+    node* rightArray = new node[sizeRight];
 
     for (int i = 0; i < sizeLeft; i++) {
         leftArray[i] = array[start + i];
@@ -24,10 +24,10 @@ void merge(int array[], int start, int middle, int end) {
     //compares left subarray and right subarray at given index values and
     //then placed into the main array
     while (leftIndex < sizeLeft && rightIndex < sizeRight) {
-        if (leftArray[leftIndex] < rightArray[rightIndex]) { // case 1
+        if (leftArray[leftIndex].value < rightArray[rightIndex].value) { // case 1
             array[sortedIndex] = leftArray[leftIndex];
             leftIndex++;
-        } else if (leftArray[leftIndex] > rightArray[rightIndex]) { // case 2
+        } else if (leftArray[leftIndex].value > rightArray[rightIndex].value) { // case 2
             array[sortedIndex] = rightArray[rightIndex];
             rightIndex++;
         } else {
@@ -48,7 +48,7 @@ void merge(int array[], int start, int middle, int end) {
     }
 
 }
-void mergesort(int array[], int start, int end) {
+void mergesort(node* array, int start, int end) {
     if (start >= end) {
         return; //call recursively until fully divided
     }

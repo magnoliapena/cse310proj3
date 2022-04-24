@@ -3,8 +3,8 @@ LinkedList* createList(){
     LinkedList* list = (LinkedList*)malloc(sizeof(LinkedList));
     return list;
 }
-LinkedList* insertList(LinkedList* list, node* item){
-    if(!list){
+void insertList(LinkedList* list, node* item){
+    if(list == nullptr){
         //allocate memory if list does not exist
         LinkedList* head = createList();
         head->node = item;
@@ -27,6 +27,4 @@ LinkedList* insertList(LinkedList* list, node* item){
     newList->next = nullptr;
     // put new list as next
     temp->next = newList;
-
-    return list;
 }

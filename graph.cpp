@@ -3,9 +3,39 @@
 
 using namespace std;
 
-//counts # of edges in graph
+//counts # of edges in graph and adds them to graph
 int returnEdges(Graph* graph, std::string edges){
-    return 0;
+    int vertex1 = 0;
+    int vertex2 = 0;
+    int pos1 = 0;
+    int pos2 = 0;
+    int totalEdges = 0;
+    std::string getLine;
+    int lineCounter = 0;
+    std::ifstream file;
+    file.open(edges);
+    while(getline(file, getLine)){
+        lineCounter++;
+        for(int i = 0; i < getLine.length(); i++){
+            if(getLine.at(i) == ' '){
+                vertex2 = std::stoi(getLine.substr(0, i));
+                vertex1 = std::stoi(getLine.substr(i, getLine.length()-i));
+            }
+        }
+        pos2 = searchHash(graph->hashTable, vertex2);
+        pos1 = searchHash(graph->hashTable, vertex1);
+        if(pos2 != -1){
+            if(pos1 != -1){
+                totalEdges++;
+                node* temp = new node;
+                temp->key = vertex2;
+                temp->value = graph->hashTable->items[pos2]->value;
+                insertList(graph->hashTable[pos1].nodes, temp);
+            }
+        }
+    }
+    file.close();
+    return totalEdges;
 }
 
 //counts # of vertices in graph from y1 to y2
@@ -13,16 +43,8 @@ int returnVertices(std::string fileName, int y1, int y2){
     std::string getLine;
     int data = 0;
     int year = 0;
-    int lineCounter = 0;
     int vertex = 0;
     std::ifstream file;
-    file.open(fileName);
-    while(getline(file, getLine)){
-        lineCounter++;
-    }
-    file.close();
-    int** verticesArray = nullptr;
-    lineCounter = 0;
     file.open(fileName);
     while(getline(file, getLine)){
         for(int i = 0; i < getLine.length(); i++){
@@ -58,7 +80,7 @@ void diameter(Graph* graph){
     std::cout<<"\nThe graph G has diameter " << graph->diameter;
 }
 //store vertices from between y1 to y2 in 2d array with their data
-int** readVertices(std::string fileName, int y1, int y2, int vertices){
+node* readVertices(std::string fileName, int y1, int y2, int vertices){
     std::string getLine;
     int data = 0;
     int year = 0;
@@ -69,43 +91,25 @@ int** readVertices(std::string fileName, int y1, int y2, int vertices){
         lineCounter++;
     }
     file.close();
-    int** verticesArray = nullptr;
-    verticesArray =  new int*[vertices];
-    for(int i = 0; i < vertices; i++){
-        verticesArray[i] = new int[2];
-    }
+    node* verticesArray = nullptr;
+    verticesArray =  new node[vertices];
     lineCounter = 0;
     file.open(fileName);
     while(getline(file, getLine)){
         for(int i = 0; i < getLine.length(); i++){
             if(getLine.at(i) == ' '){
-                data = std::stoi(getLine.substr(0, i-1));
+                data = std::stoi(getLine.substr(0, i));
                 year = std::stoi(getLine.substr(i, getLine.length()-i));
                 if(year >= y1 && year <= y2){
-                    verticesArray[lineCounter][0] = data;
-                    verticesArray[lineCounter][1] = year;
-                    std::cout<<data<<"\t"<<year<<"\n";
+                    verticesArray[lineCounter].value = data;
+                    verticesArray[lineCounter].key = year;
+                    lineCounter++;
                 }
             }
         }
     }
     file.close();
     return verticesArray;
-}
-//add edges to graph that have vertices between y1 and y2
-void addEdges(Graph* graph, std::string fileName, int y1, int y2){
-    std::ifstream file;
-    file.open(fileName);
-    std::string getLine;
-    int totalEdges = 0;
-    while(getline(file, getLine)){
-        totalEdges++;
-    }
-    file.close();
-
-    for(int i = 0; i < graph->edges; i++){
-
-    }
 }
 void scc(Graph* graph){
     std::cout<<"Command: ";
@@ -115,34 +119,25 @@ void scc(Graph* graph){
 }
 //main function for graph
 Graph* createGraph(std::string edges, std::string dates, int y1, int y2){
+    //allocate memory
     Graph* graph = (Graph*)malloc(sizeof(Graph*));
-    graph->vertices = 0;
-    graph->sccArray = nullptr;
-    //allocate memory and store everything as null first
+    //calculate # of vertices
     graph->vertices = returnVertices(dates, y1, y2);
-    graph->edges = 0;
-    graph->verticesArray = nullptr;
-    graph->adjacencyLists = nullptr;
-    graph->diameter = 0;
-    graph->sccNum = 0;//num of vertices
-    graph->adjacencyLists = createHashTable(graph->vertices); //adjacency list
+    //store vertices with their key (year)
     graph->verticesArray = readVertices(dates, y1, y2, graph->vertices); //vertices Array
-    graph->vLabel[graph->vertices]; //only vertex no data
-    for(int i = 0; i < graph->vertices; i++){
-        graph->vLabel[i] = graph->verticesArray[i][0];
-    }
     //sort vertex labels in increasing order
-    mergesort(graph->vLabel, 0, graph->vertices-1);
+    mergesort(graph->verticesArray, 0, graph->vertices-1);
+    //create hash table
+    graph->hashTable = createHashTable(graph->vertices); //adjacency list
     //add each vertex to hash table using hash function and separate chaining
     for(int i = 0; i < graph->vertices; i++){
-        insertHash(graph->adjacencyLists, graph->verticesArray[i][1], graph->verticesArray[i][0]);
+        insertHash(graph->hashTable, graph->verticesArray[i].value, graph->verticesArray[i].key, i);
     }
-    //add all edges to graph
-    addEdges(graph, edges, y1, y2);
-    graph->edges = returnEdges(graph, edges); //num of edges
+    //add all edges to graph and return number of total edges
+    graph->edges = returnEdges(graph, edges);
 
     //output
-    std::cout<<"Command: start-graph " << " "<< y1 << " " <<y2<<"\n"; //echo command
+    std::cout<<"Command: start-graph " << y1 << " " <<y2<<"\n"; //echo command
     std::cout<<"\nThe graph G for the years " << y1 << "-" << y2 << " has:";
     std::cout<<"\n\t|V| = " << graph->vertices << " vertices";
     std::cout<<"\n\t|E| = " << graph->edges << " edges";
